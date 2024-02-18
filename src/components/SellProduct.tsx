@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { useGetProductByIdQuery } from "../redux/features/product/productApi";
 import { useCreateSaleMutation } from "../redux/features/sales/salesApi";
 
 const SellProduct = ({ productId }: { productId: any }) => {
@@ -9,12 +10,14 @@ const SellProduct = ({ productId }: { productId: any }) => {
 
    const [sellProduct] = useCreateSaleMutation();
    const { register, handleSubmit, reset } = useForm();
+   const { data: product, isLoading } = useGetProductByIdQuery(productId);
 
    const onSubmit = async (data: FieldValues) => {
       const sellingInfo = {
          productId,
          buyerName: data.buyerName,
          quantity: data.quantity,
+         branch: data.branch,
          date: data.date,
       };
 
@@ -33,6 +36,8 @@ const SellProduct = ({ productId }: { productId: any }) => {
          });
       }
    };
+
+   if (isLoading) return <div>Loading...</div>;
 
    return (
       <div>
@@ -82,6 +87,23 @@ const SellProduct = ({ productId }: { productId: any }) => {
                                  id="quantity"
                                  name="quantity"
                                  className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                              />
+                           </div>
+                           <div className="flex flex-col">
+                              <label
+                                 htmlFor="branch"
+                                 className="mb-2 font-bold text-lg text-gray-900"
+                              >
+                                 Branch
+                              </label>
+                              <input
+                                 {...register("branch")}
+                                 defaultValue={product?.data.branch}
+                                 type="text"
+                                 id="branch"
+                                 name="branch"
+                                 className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                 readOnly
                               />
                            </div>
                            <div className="flex flex-col">
