@@ -142,6 +142,18 @@ const AddProduct = () => {
                   </div>
                   <div className="form-control">
                      <label className="label">
+                        <span className="label-text">Branch</span>
+                     </label>
+                     <input
+                        {...register("branch")}
+                        type="text"
+                        placeholder="branch"
+                        className="input input-bordered"
+                        required
+                     />
+                  </div>
+                  <div className="form-control">
+                     <label className="label">
                         <span className="label-text">Condition</span>
                      </label>
 
