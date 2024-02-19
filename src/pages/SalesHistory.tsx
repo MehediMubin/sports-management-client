@@ -1,4 +1,5 @@
 import { useState } from "react";
+import FilterBranch from "../components/FilterBranch";
 import FilterSales from "../components/FilterSales";
 import SalesCard from "../components/SalesCard";
 import {
@@ -89,7 +90,10 @@ const SalesHistory = () => {
 
    return (
       <div className="w-11/12 mx-auto mt-3">
-         <FilterSales filter={filter} setFilter={setFilter} />
+         <div className="flex space-x-5">
+            <FilterSales filter={filter} setFilter={setFilter} />
+            <FilterBranch filter={filter} setFilter={setFilter} />
+         </div>
          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <SalesCard Title={"Total Quantity"} description={totalQuantity} />
             <SalesCard

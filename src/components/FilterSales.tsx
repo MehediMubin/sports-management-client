@@ -5,8 +5,6 @@ const FilterSales = ({
    filter: string;
    setFilter: (value: string) => void;
 }) => {
-   console.log(filter);
-
    return (
       <div className="my-4">
          <select
