@@ -20,7 +20,6 @@ const Login = () => {
             password: data.password,
          };
          const res = await loginUser(userInfo).unwrap();
-         console.log(res.data.accessToken);
          navigate("/");
          const user = verifyToken(res!.data.accessToken);
          dispatch(

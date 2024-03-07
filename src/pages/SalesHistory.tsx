@@ -12,7 +12,8 @@ import {
 
 const SalesHistory = () => {
    const { data, isLoading, isSuccess } = useGetHistoryQuery(undefined);
-   const [filter, setFilter] = useState("all-time");
+   const [filterSales, setFilterSales] = useState("all-time");
+   const [filter, setFilter] = useState("");
 
    const {
       data: dailyData,
@@ -44,7 +45,7 @@ const SalesHistory = () => {
       totalSellAmount = 0,
       name = "";
 
-   switch (filter) {
+   switch (filterSales) {
       case "daily":
          if (dailyIsLoading) return <div>Loading...</div>;
          if (dailyIsSuccess) {
@@ -88,10 +89,12 @@ const SalesHistory = () => {
          break;
    }
 
+   console.log(filter);
+
    return (
       <div className="w-11/12 mx-auto mt-3">
          <div className="flex space-x-5">
-            <FilterSales filter={filter} setFilter={setFilter} />
+            <FilterSales filter={filterSales} setFilter={setFilterSales} />
             <FilterBranch filter={filter} setFilter={setFilter} />
          </div>
          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

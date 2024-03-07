@@ -15,6 +15,7 @@ const FilterBranch = ({
    let uniqueBranches = [...new Set(products.map((product) => product.branch))];
    uniqueBranches.push("All Branches");
    uniqueBranches = uniqueBranches.sort();
+   // console.log(filter);
 
    return (
       <div className="my-4">
