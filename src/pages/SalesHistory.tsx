@@ -1,118 +1,105 @@
 import { useState } from "react";
-import { set } from "react-hook-form";
 import FilterBranch from "../components/FilterBranch";
 import FilterSales from "../components/FilterSales";
 import SalesCard from "../components/SalesCard";
 import {
-   useGetBranchHistoryQuery,
-   useGetHistoryDailyQuery,
-   useGetHistoryMonthlyQuery,
-   useGetHistoryQuery,
-   useGetHistoryWeeklyQuery,
-   useGetHistoryYearlyQuery,
+   useGetSalesHistoryAllTimeQuery,
+   useGetSalesHistoryThisMonthQuery,
+   useGetSalesHistoryThisWeekQuery,
+   useGetSalesHistoryThisYearQuery,
+   useGetSalesHistoryTodayQuery,
 } from "../redux/features/sales/salesApi";
 
 const SalesHistory = () => {
-   const { data, isLoading, isSuccess } = useGetHistoryQuery(undefined);
    const [filterSales, setFilterSales] = useState("all-time");
-   const [filter, setFilter] = useState("");
-   const { data: branchHistory, isLoading: isLoading2 } =
-      useGetBranchHistoryQuery({
-         branchName: filter,
-      });
+   const [filter, setFilter] = useState("All Branches");
+
+   if (filter === "All Branches") setFilter("all-branches");
+
+   const { data, isLoading, isSuccess } = useGetSalesHistoryAllTimeQuery({
+      branchName: filter,
+   });
 
    const {
       data: dailyData,
       isLoading: dailyIsLoading,
       isSuccess: dailyIsSuccess,
-   } = useGetHistoryDailyQuery(undefined);
+   } = useGetSalesHistoryTodayQuery({ branchName: filter });
 
    const {
       data: weeklyData,
       isLoading: weeklyIsLoading,
       isSuccess: weeklyIsSuccess,
-   } = useGetHistoryWeeklyQuery(undefined);
+   } = useGetSalesHistoryThisWeekQuery({ branchName: filter });
 
    const {
       data: monthlyData,
       isLoading: monthlyIsLoading,
       isSuccess: monthlyIsSuccess,
-   } = useGetHistoryMonthlyQuery(undefined);
+   } = useGetSalesHistoryThisMonthQuery({ branchName: filter });
 
    const {
       data: yearlyData,
       isLoading: yearlyIsLoading,
       isSuccess: yearlyIsSuccess,
-   } = useGetHistoryYearlyQuery(undefined);
+   } = useGetSalesHistoryThisYearQuery({ branchName: filter });
 
-   if (isLoading || isLoading2) return <div>Loading...</div>;
+   if (isLoading) return <div>Loading...</div>;
 
    let totalQuantity = 0,
-      totalSellAmount = 0,
-      name = "";
+      totalSellAmount = 0;
 
    switch (filterSales) {
-      case "daily":
+      case "today":
          if (dailyIsLoading) return <div>Loading...</div>;
          if (dailyIsSuccess) {
-            totalQuantity = dailyData?.data?.totalQuantity;
-            totalSellAmount = dailyData?.data?.totalSellAmount;
-            name = dailyData?.data?.name;
+            totalQuantity = dailyData?.data?.totalQuantity || 0;
+            totalSellAmount = dailyData?.data?.totalSellAmount || 0;
          }
          break;
-      case "weekly":
+      case "this-week":
          if (weeklyIsLoading) return <div>Loading...</div>;
          if (weeklyIsSuccess) {
-            totalQuantity = weeklyData?.data?.totalQuantity;
-            totalSellAmount = weeklyData?.data?.totalSellAmount;
-            name = weeklyData?.data?.name;
+            totalQuantity = weeklyData?.data?.totalQuantity || 0;
+            totalSellAmount = weeklyData?.data?.totalSellAmount || 0;
          }
          break;
-      case "monthly":
+      case "this-month":
          if (monthlyIsLoading) return <div>Loading...</div>;
          if (monthlyIsSuccess) {
-            totalQuantity = monthlyData?.data?.totalQuantity;
-            totalSellAmount = monthlyData?.data?.totalSellAmount;
-            name = monthlyData?.data?.name;
+            totalQuantity = monthlyData?.data?.totalQuantity || 0;
+            totalSellAmount = monthlyData?.data?.totalSellAmount || 0;
          }
          break;
-      case "yearly":
+      case "this-year":
          if (yearlyIsLoading) return <div>Loading...</div>;
          if (yearlyIsSuccess) {
-            totalQuantity = yearlyData?.data?.totalQuantity;
-            totalSellAmount = yearlyData?.data?.totalSellAmount;
-            name = yearlyData?.data?.name;
+            totalQuantity = yearlyData?.data?.totalQuantity || 0;
+            totalSellAmount = yearlyData?.data?.totalSellAmount || 0;
          }
          break;
       case "all-time":
          if (isSuccess) {
-            totalQuantity = data?.data?.totalQuantity;
-            totalSellAmount = data?.data?.totalSellAmount;
-            name = data?.data?.name;
+            totalQuantity = data?.data?.totalQuantity || 0;
+            totalSellAmount = data?.data?.totalSellAmount || 0;
          }
          break;
       default:
          break;
    }
 
-   console.log(filter);
-   console.log(branchHistory.data);
-
-   // if (filter === "All Branches") setFilter("all-branches");
-
    return (
-      <div className="w-11/12 mx-auto mt-3">
+      <div className="w-8/12 mx-auto mt-3">
          <div className="flex space-x-5">
             <FilterSales filter={filterSales} setFilter={setFilterSales} />
             <FilterBranch filter={filter} setFilter={setFilter} />
          </div>
-         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+         <div className="flex justify-between gap-2 lg:gap-0">
             <SalesCard Title={"Total Quantity"} description={totalQuantity} />
             <SalesCard
                Title={"Total Sell Amount"}
                description={`$${totalSellAmount}`}
             />
-            <SalesCard Title={"Most Sold Product"} description={name} />
          </div>
       </div>
    );
