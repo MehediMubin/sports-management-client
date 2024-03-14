@@ -70,14 +70,6 @@ const Login = () => {
                         className="input input-bordered"
                         required
                      />
-                     <label className="label">
-                        <Link
-                           to="/register"
-                           className="label-text-alt link link-hover"
-                        >
-                           Don't have an account? Register here!
-                        </Link>
-                     </label>
                   </div>
                   <div className="form-control mt-6">
                      <button className="btn btn-primary">Login</button>
