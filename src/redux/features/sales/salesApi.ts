@@ -45,6 +45,14 @@ const salesApi = baseApi.injectEndpoints({
          }),
          providesTags: ["Sales"],
       }),
+      getBranchHistory: builder.query({
+         query: (queryParams) => ({
+            url: "/sales/branch-history",
+            method: "GET",
+            params: queryParams,
+         }),
+         providesTags: ["Sales"],
+      }),
    }),
 });
 
@@ -55,4 +63,5 @@ export const {
    useGetHistoryWeeklyQuery,
    useGetHistoryMonthlyQuery,
    useGetHistoryYearlyQuery,
+   useGetBranchHistoryQuery,
 } = salesApi;

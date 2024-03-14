@@ -3,6 +3,7 @@ import FilterBranch from "../components/FilterBranch";
 import FilterSales from "../components/FilterSales";
 import SalesCard from "../components/SalesCard";
 import {
+   useGetBranchHistoryQuery,
    useGetHistoryDailyQuery,
    useGetHistoryMonthlyQuery,
    useGetHistoryQuery,
@@ -14,6 +15,10 @@ const SalesHistory = () => {
    const { data, isLoading, isSuccess } = useGetHistoryQuery(undefined);
    const [filterSales, setFilterSales] = useState("all-time");
    const [filter, setFilter] = useState("");
+   const { data: branchHistory, isLoading: isLoading2 } =
+      useGetBranchHistoryQuery({
+         branchName: filter,
+      });
 
    const {
       data: dailyData,
@@ -39,7 +44,7 @@ const SalesHistory = () => {
       isSuccess: yearlyIsSuccess,
    } = useGetHistoryYearlyQuery(undefined);
 
-   if (isLoading) return <div>Loading...</div>;
+   if (isLoading || isLoading2) return <div>Loading...</div>;
 
    let totalQuantity = 0,
       totalSellAmount = 0,
@@ -90,6 +95,7 @@ const SalesHistory = () => {
    }
 
    console.log(filter);
+   console.log(branchHistory.data);
 
    return (
       <div className="w-11/12 mx-auto mt-3">
