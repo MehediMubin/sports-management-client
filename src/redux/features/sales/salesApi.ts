@@ -10,44 +10,41 @@ const salesApi = baseApi.injectEndpoints({
          }),
          invalidatesTags: ["Sales", "Products"],
       }),
-      getHistory: builder.query({
-         query: () => ({
-            url: "/sales/history",
+      getSalesHistoryAllTime: builder.query({
+         query: (queryParams) => ({
+            url: "/sales/history-all-time",
             method: "GET",
+            params: queryParams,
          }),
          providesTags: ["Sales"],
       }),
-      getHistoryDaily: builder.query({
-         query: () => ({
-            url: "/sales/history-daily",
+      getSalesHistoryToday: builder.query({
+         query: (queryParams) => ({
+            url: "/sales/history-today",
             method: "GET",
+            params: queryParams,
          }),
          providesTags: ["Sales"],
       }),
-      getHistoryWeekly: builder.query({
-         query: () => ({
+      getSalesHistoryThisWeek: builder.query({
+         query: (queryParams) => ({
             url: "/sales/history-weekly",
             method: "GET",
+            params: queryParams,
          }),
          providesTags: ["Sales"],
       }),
-      getHistoryMonthly: builder.query({
-         query: () => ({
+      getSalesHistoryThisMonth: builder.query({
+         query: (queryParams) => ({
             url: "/sales/history-monthly",
             method: "GET",
+            params: queryParams,
          }),
          providesTags: ["Sales"],
       }),
-      getHistoryYearly: builder.query({
-         query: () => ({
-            url: "/sales/history-yearly",
-            method: "GET",
-         }),
-         providesTags: ["Sales"],
-      }),
-      getBranchHistory: builder.query({
+      getSalesHistoryThisYear: builder.query({
          query: (queryParams) => ({
-            url: "/sales/branch-history",
+            url: "/sales/history-yearly",
             method: "GET",
             params: queryParams,
          }),
@@ -58,10 +55,9 @@ const salesApi = baseApi.injectEndpoints({
 
 export const {
    useCreateSaleMutation,
-   useGetHistoryQuery,
-   useGetHistoryDailyQuery,
-   useGetHistoryWeeklyQuery,
-   useGetHistoryMonthlyQuery,
-   useGetHistoryYearlyQuery,
-   useGetBranchHistoryQuery,
+   useGetSalesHistoryAllTimeQuery,
+   useGetSalesHistoryTodayQuery,
+   useGetSalesHistoryThisWeekQuery,
+   useGetSalesHistoryThisMonthQuery,
+   useGetSalesHistoryThisYearQuery,
 } = salesApi;

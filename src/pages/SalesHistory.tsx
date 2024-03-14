@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { set } from "react-hook-form";
 import FilterBranch from "../components/FilterBranch";
 import FilterSales from "../components/FilterSales";
 import SalesCard from "../components/SalesCard";
@@ -96,6 +97,8 @@ const SalesHistory = () => {
 
    console.log(filter);
    console.log(branchHistory.data);
+
+   // if (filter === "All Branches") setFilter("all-branches");
 
    return (
       <div className="w-11/12 mx-auto mt-3">
