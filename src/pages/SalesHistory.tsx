@@ -106,23 +106,37 @@ const SalesHistory = () => {
 
    return (
       <div className="w-8/12 mx-auto mt-3">
-         <div className="flex space-x-5">
-            <FilterSales filter={filterSales} setFilter={setFilterSales} />
-            {role === "branchManager" ? (
-               <select disabled>
-                  <option>{branchData?.data || "all-branches"}</option>
-               </select>
-            ) : (
-               <FilterBranch filter={filter} setFilter={setFilter} />
-            )}
-         </div>
-         <div className="flex justify-between gap-2 lg:gap-0">
-            <SalesCard Title={"Total Quantity"} description={totalQuantity} />
-            <SalesCard
-               Title={"Total Sell Amount"}
-               description={`$${totalSellAmount}`}
-            />
-         </div>
+         {role === "seller" ? (
+            <h1 className="text-red-500 text-3xl text-center p-10">
+               You're not authorized to view sales history
+            </h1>
+         ) : (
+            <>
+               <div className="flex space-x-5">
+                  <FilterSales
+                     filter={filterSales}
+                     setFilter={setFilterSales}
+                  />
+                  {role === "branchManager" ? (
+                     <select disabled>
+                        <option>{branchData?.data || "all-branches"}</option>
+                     </select>
+                  ) : (
+                     <FilterBranch filter={filter} setFilter={setFilter} />
+                  )}
+               </div>
+               <div className="flex justify-between gap-2 lg:gap-0">
+                  <SalesCard
+                     Title={"Total Quantity"}
+                     description={totalQuantity}
+                  />
+                  <SalesCard
+                     Title={"Total Sell Amount"}
+                     description={`$${totalSellAmount}`}
+                  />
+               </div>
+            </>
+         )}
       </div>
    );
 };
