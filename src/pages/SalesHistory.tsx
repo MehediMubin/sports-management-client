@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FilterBranch from "../components/FilterBranch";
 import FilterSales from "../components/FilterSales";
 import SalesCard from "../components/SalesCard";
@@ -9,12 +9,28 @@ import {
    useGetSalesHistoryThisYearQuery,
    useGetSalesHistoryTodayQuery,
 } from "../redux/features/sales/salesApi";
+import { useGetBranchQuery } from "../redux/features/user/userApi";
+import { useAppSelector } from "../redux/hooks";
+import { RootState } from "../redux/store";
 
 const SalesHistory = () => {
    const [filterSales, setFilterSales] = useState("all-time");
    const [filter, setFilter] = useState("All Branches");
 
-   if (filter === "All Branches") setFilter("all-branches");
+   const user = useAppSelector((state: RootState) => state.auth.user);
+   const { role, username } = user;
+   const { data: branchData, isLoading: branchNameLoading } =
+      useGetBranchQuery(username);
+
+   useEffect(() => {
+      if (filter === "All Branches") {
+         setFilter("all-branches");
+      }
+
+      if (role === "branchManager") {
+         setFilter(branchData?.data || "all-branches");
+      }
+   }, [filter, role, branchData]);
 
    const { data, isLoading, isSuccess } = useGetSalesHistoryAllTimeQuery({
       branchName: filter,
@@ -92,7 +108,13 @@ const SalesHistory = () => {
       <div className="w-8/12 mx-auto mt-3">
          <div className="flex space-x-5">
             <FilterSales filter={filterSales} setFilter={setFilterSales} />
-            <FilterBranch filter={filter} setFilter={setFilter} />
+            {role === "branchManager" ? (
+               <select disabled>
+                  <option>{branchData?.data || "all-branches"}</option>
+               </select>
+            ) : (
+               <FilterBranch filter={filter} setFilter={setFilter} />
+            )}
          </div>
          <div className="flex justify-between gap-2 lg:gap-0">
             <SalesCard Title={"Total Quantity"} description={totalQuantity} />
