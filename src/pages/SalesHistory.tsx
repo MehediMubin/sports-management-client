@@ -171,7 +171,7 @@ const SalesHistory = () => {
                      )}
                   </div>
 
-                  <div>
+                  <div className="mt-5 bg-orange-500 p-3 text-white rounded-lg mb-2">
                      <PDFDownloadLink
                         document={<MyDocument salesReport={salesReport} />}
                         fileName="sales-report.pdf"
