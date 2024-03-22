@@ -112,18 +112,26 @@ const SalesHistory = () => {
             </h1>
          ) : (
             <>
-               <div className="flex space-x-5">
-                  <FilterSales
-                     filter={filterSales}
-                     setFilter={setFilterSales}
-                  />
-                  {role === "branchManager" ? (
-                     <select disabled>
-                        <option>{branchData?.data || "all-branches"}</option>
-                     </select>
-                  ) : (
-                     <FilterBranch filter={filter} setFilter={setFilter} />
-                  )}
+               <div className="flex justify-between">
+                  <div className="flex space-x-4">
+                     <FilterSales
+                        filter={filterSales}
+                        setFilter={setFilterSales}
+                     />
+                     {role === "branchManager" ? (
+                        <select disabled>
+                           <option>{branchData?.data || "all-branches"}</option>
+                        </select>
+                     ) : (
+                        <FilterBranch filter={filter} setFilter={setFilter} />
+                     )}
+                  </div>
+
+                  <div>
+                     <button className="btn btn-warning mt-3">
+                        Download Sales Report
+                     </button>
+                  </div>
                </div>
                <div className="flex justify-between gap-2 lg:gap-0">
                   <SalesCard
