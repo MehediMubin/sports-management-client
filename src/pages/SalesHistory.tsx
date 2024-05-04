@@ -1,11 +1,3 @@
-import {
-   Document,
-   PDFDownloadLink,
-   Page,
-   StyleSheet,
-   Text,
-   View,
-} from "@react-pdf/renderer";
 import { useEffect, useState } from "react";
 import FilterBranch from "../components/FilterBranch";
 import FilterSales from "../components/FilterSales";
@@ -21,34 +13,11 @@ import { useGetBranchQuery } from "../redux/features/user/userApi";
 import { useAppSelector } from "../redux/hooks";
 import { RootState } from "../redux/store";
 
-const styles = StyleSheet.create({
-   page: {
-      padding: 30,
-   },
-   section: {
-      margin: 10,
-      padding: 10,
-      flexGrow: 1,
-   },
-});
-
-const MyDocument = ({ salesReport }) => (
-   <Document>
-      <Page size="A4" style={styles.page}>
-         <View style={styles.section}>
-            <Text>Total Expense: {salesReport?.totalSellAmount}</Text>
-            <Text>Total Sales: {salesReport?.totalExpense}</Text>
-            <Text>Profit: {salesReport?.profit}</Text>
-            <Text>Loss: {salesReport?.loss}</Text>
-         </View>
-      </Page>
-   </Document>
-);
-
 const SalesHistory = () => {
    const [filterSales, setFilterSales] = useState("all-time");
    const [filter, setFilter] = useState("All Branches");
    const [salesReport, setSalesReport] = useState({});
+   const [totalSellAmountState, setTotalSellAmountState] = useState(0);
 
    const user = useAppSelector((state: RootState) => state.auth.user);
    const { role, username } = user;
@@ -57,6 +26,31 @@ const SalesHistory = () => {
 
    let totalQuantity = 0,
       totalSellAmount = 0;
+
+   useEffect(() => {
+      if (filter === "All Branches") {
+         setFilter("all-branches");
+      }
+
+      if (role === "branchManager") {
+         setFilter(branchData?.data || "all-branches");
+      }
+   }, [filter, role, branchData]);
+
+   useEffect(() => {
+      setTotalSellAmountState(totalSellAmount);
+      console.log(totalSellAmountState);
+      const totalExpense = Math.round(totalSellAmountState * 0.8);
+      const profit = totalSellAmountState - totalExpense;
+      const loss = 0;
+      const newSalesReport = {
+         totalExpense,
+         totalSellAmount: totalSellAmountState,
+         profit,
+         loss,
+      };
+      setSalesReport(newSalesReport);
+   }, [totalSellAmountState]);
 
    const { data, isLoading, isSuccess } = useGetSalesHistoryAllTimeQuery({
       branchName: filter,
@@ -127,27 +121,6 @@ const SalesHistory = () => {
          break;
    }
 
-   useEffect(() => {
-      if (filter === "All Branches") {
-         setFilter("all-branches");
-      }
-
-      if (role === "branchManager") {
-         setFilter(branchData?.data || "all-branches");
-      }
-
-      const totalExpense = Math.round(totalSellAmount * 0.8);
-      const profit = totalSellAmount - totalExpense;
-      const loss = 0;
-      const newSalesReport = {
-         totalExpense,
-         totalSellAmount,
-         profit,
-         loss,
-      };
-      setSalesReport(newSalesReport);
-   }, [filter, role, branchData, totalSellAmount]);
-
    return (
       <div className="w-8/12 mx-auto mt-3">
          {role === "seller" ? (
@@ -169,19 +142,6 @@ const SalesHistory = () => {
                      ) : (
                         <FilterBranch filter={filter} setFilter={setFilter} />
                      )}
-                  </div>
-
-                  <div className="mt-5 bg-orange-500 p-3 text-white rounded-lg mb-2">
-                     <PDFDownloadLink
-                        document={<MyDocument salesReport={salesReport} />}
-                        fileName="sales-report.pdf"
-                     >
-                        {({ blob, url, loading, error }) =>
-                           loading
-                              ? "Loading document..."
-                              : "Download Sales Report"
-                        }
-                     </PDFDownloadLink>
                   </div>
                </div>
                <div className="flex justify-between gap-2 lg:gap-0">
