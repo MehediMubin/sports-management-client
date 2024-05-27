@@ -1,7 +1,7 @@
 import { pdf } from "@react-pdf/renderer";
+import FileSaver from "file-saver";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
-import FileSaver from "file-saver";
 import { toast } from "sonner";
 import { useGetProductByIdQuery } from "../redux/features/product/productApi";
 import { useCreateSaleMutation } from "../redux/features/sales/salesApi";
@@ -36,11 +36,25 @@ const SellProduct = ({ productId }: { productId: any }) => {
          });
          return;
       } else {
-         toast.success("Product sold successfully!", {
-            duration: 2000,
-         });
-         const blob = await pdf(<Invoice invoice={newSellingInfo} />).toBlob();
-         FileSaver.saveAs(blob, "invoice.pdf");
+         toast.success(
+            <div>
+               Product sold successfully!
+               <button
+                  onClick={async () => {
+                     const blob = await pdf(
+                        <Invoice invoice={newSellingInfo} />
+                     ).toBlob();
+                     FileSaver.saveAs(blob, "invoice.pdf");
+                  }}
+                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+               >
+                  Download Invoice
+               </button>
+            </div>,
+            {
+               duration: 5000,
+            }
+         );
       }
    };
 
