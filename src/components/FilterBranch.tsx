@@ -10,7 +10,7 @@ const FilterBranch = ({
    const { data, isLoading } = useGetAllProductsQuery(undefined);
    const products = data?.data;
 
-   if (isLoading) return <div>Loading...</div>;
+   if (isLoading) return null;
 
    let uniqueBranches = [...new Set(products.map((product) => product.branch))];
    uniqueBranches.push("All Branches");

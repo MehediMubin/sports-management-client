@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import FilterBranch from "../components/FilterBranch";
 import FilterSales from "../components/FilterSales";
+import LoadingSpinner from "../components/LoadingSpinner";
 import SalesCard from "../components/SalesCard";
 import {
    useGetSalesHistoryAllTimeQuery,
@@ -80,32 +81,32 @@ const SalesHistory = () => {
       isSuccess: yearlyIsSuccess,
    } = useGetSalesHistoryThisYearQuery({ branchName: filter });
 
-   if (isLoading) return <div>Loading...</div>;
+   if (isLoading) return <LoadingSpinner />;
 
    switch (filterSales) {
       case "today":
-         if (dailyIsLoading) return <div>Loading...</div>;
+         if (dailyIsLoading) return <LoadingSpinner />;
          if (dailyIsSuccess) {
             totalQuantity = dailyData?.data?.totalQuantity || 0;
             totalSellAmount = dailyData?.data?.totalSellAmount || 0;
          }
          break;
       case "this-week":
-         if (weeklyIsLoading) return <div>Loading...</div>;
+         if (weeklyIsLoading) return <LoadingSpinner />;
          if (weeklyIsSuccess) {
             totalQuantity = weeklyData?.data?.totalQuantity || 0;
             totalSellAmount = weeklyData?.data?.totalSellAmount || 0;
          }
          break;
       case "this-month":
-         if (monthlyIsLoading) return <div>Loading...</div>;
+         if (monthlyIsLoading) return <LoadingSpinner />;
          if (monthlyIsSuccess) {
             totalQuantity = monthlyData?.data?.totalQuantity || 0;
             totalSellAmount = monthlyData?.data?.totalSellAmount || 0;
          }
          break;
       case "this-year":
-         if (yearlyIsLoading) return <div>Loading...</div>;
+         if (yearlyIsLoading) return <LoadingSpinner />;
          if (yearlyIsSuccess) {
             totalQuantity = yearlyData?.data?.totalQuantity || 0;
             totalSellAmount = yearlyData?.data?.totalSellAmount || 0;
