@@ -38,7 +38,7 @@ const SellProduct = ({ productId }: { productId: any }) => {
       } else {
          toast.success(
             <div>
-               Product sold successfully!
+               Product sold successfully!{" "}
                <button
                   onClick={async () => {
                      const blob = await pdf(
