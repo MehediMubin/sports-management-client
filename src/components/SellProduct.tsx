@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { useGetProductByIdQuery } from "../redux/features/product/productApi";
 import { useCreateSaleMutation } from "../redux/features/sales/salesApi";
 import Invoice from "./Invoice";
+import LoadingSpinner from "./LoadingSpinner";
 
 const SellProduct = ({ productId }: { productId: any }) => {
    const [isFormOpen, setIsFormOpen] = useState(false);
@@ -58,7 +59,7 @@ const SellProduct = ({ productId }: { productId: any }) => {
       }
    };
 
-   if (isLoading) return <div>Loading...</div>;
+   if (isLoading) return <LoadingSpinner />;
 
    return (
       <div>

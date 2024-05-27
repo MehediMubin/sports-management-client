@@ -1,6 +1,7 @@
 import { FieldValues, useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
+import LoadingSpinner from "../components/LoadingSpinner";
 import {
    useGetProductByIdQuery,
    useUpdateProductByIdMutation,
@@ -25,7 +26,7 @@ const UpdateProduct = () => {
       }
    };
 
-   if (isLoading) return <div>Loading...</div>;
+   if (isLoading) return <LoadingSpinner />;
 
    return (
       <div className="hero min-h-screen bg-base-200">
