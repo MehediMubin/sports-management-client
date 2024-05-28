@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
+import AuthorizedView from "../components/AuthorizedView";
 import LoadingSpinner from "../components/LoadingSpinner";
+import UnauthorizedView from "../components/UnauthorizedView";
 import useSalesHistory from "../hooks/useSalesHistory"; // new custom hook
 import { TUser } from "../redux/features/auth/authSlice";
 import { useGetBranchQuery } from "../redux/features/user/userApi";
 import { useAppSelector } from "../redux/hooks";
 import { RootState } from "../redux/store";
-import AuthorizedView from "../components/AuthorizedView";
-import UnauthorizedView from "../components/UnauthorizedView";
 
 const SalesHistory = () => {
    const [filterSales, setFilterSales] = useState("all-time");
@@ -52,7 +52,5 @@ const SalesHistory = () => {
       </div>
    );
 };
-
-
 
 export default SalesHistory;
