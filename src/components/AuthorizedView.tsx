@@ -1,3 +1,4 @@
+import { calculateFinancials } from "../utils/calculateFinancials";
 import FilterBranch from "./FilterBranch";
 import FilterSales from "./FilterSales";
 import SalesCard from "./SalesCard";
@@ -26,7 +27,7 @@ const AuthorizedView = ({
             )}
          </div>
          <DownloadSalesReportButton
-            salesReport={{ totalQuantity, totalSellAmount }}
+            salesReport={calculateFinancials(totalQuantity, totalSellAmount)}
          />
       </div>
       <div className="flex justify-between gap-2 lg:gap-0">
