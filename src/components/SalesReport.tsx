@@ -1,4 +1,12 @@
-import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
+import {
+   Document,
+   Page,
+   pdf,
+   StyleSheet,
+   Text,
+   View,
+} from "@react-pdf/renderer";
+import { saveAs } from "file-saver";
 
 const styles = StyleSheet.create({
    page: {
@@ -18,11 +26,10 @@ const styles = StyleSheet.create({
       fontWeight: "bold",
    },
    item: {
-      flexDirection: "row",
+      flexDirection: "column",
       marginBottom: 15,
       borderBottomColor: "#000",
       borderBottomWidth: 1,
-      alignItems: "stretch",
    },
    itemColumn: {
       flexDirection: "column",
@@ -79,4 +86,20 @@ const SalesReport = ({ salesReport }) => (
    </Document>
 );
 
-export default SalesReport;
+const DownloadSalesReportButton = ({ salesReport }) => (
+   <div className="mt-4 mr-1">
+      <button
+         onClick={async () => {
+            const blob = await pdf(
+               <SalesReport salesReport={salesReport} />
+            ).toBlob();
+            saveAs(blob, "sales_report.pdf");
+         }}
+         className="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 border border-blue-700 rounded shadow"
+      >
+         Download Sales Report
+      </button>
+   </div>
+);
+
+export { DownloadSalesReportButton, SalesReport };

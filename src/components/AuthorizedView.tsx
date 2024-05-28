@@ -1,6 +1,7 @@
 import FilterBranch from "./FilterBranch";
 import FilterSales from "./FilterSales";
 import SalesCard from "./SalesCard";
+import { DownloadSalesReportButton } from "./SalesReport";
 
 const AuthorizedView = ({
    role,
@@ -24,6 +25,9 @@ const AuthorizedView = ({
                <FilterBranch filter={filter} setFilter={setFilter} />
             )}
          </div>
+         <DownloadSalesReportButton
+            salesReport={{ totalQuantity, totalSellAmount }}
+         />
       </div>
       <div className="flex justify-between gap-2 lg:gap-0">
          <SalesCard Title={"Total Quantity"} description={totalQuantity} />
