@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-const SalesReport = ({ reportData }) => (
+const SalesReport = ({ salesReport }) => (
    <Document>
       <Page size="A4" style={styles.page}>
          <View style={styles.section}>
@@ -50,28 +50,28 @@ const SalesReport = ({ reportData }) => (
                <View style={styles.itemColumn}>
                   <Text style={styles.itemName}>Total Quantity:</Text>
                   <Text style={styles.itemQuantity}>
-                     {reportData.totalQuantity}
+                     {salesReport.totalQuantity}
                   </Text>
                </View>
                <View style={styles.itemColumn}>
                   <Text style={styles.itemName}>Total Sell Amount:</Text>
                   <Text style={styles.itemQuantity}>
-                     {reportData.totalSellAmount}
+                     {salesReport.totalSellAmount}
                   </Text>
                </View>
                <View style={styles.itemColumn}>
                   <Text style={styles.itemName}>Total Expense:</Text>
                   <Text style={styles.itemQuantity}>
-                     {reportData.totalExpense}
+                     {salesReport.totalExpense}
                   </Text>
                </View>
                <View style={styles.itemColumn}>
                   <Text style={styles.itemName}>Profit:</Text>
-                  <Text style={styles.itemQuantity}>{reportData.profit}</Text>
+                  <Text style={styles.itemQuantity}>{salesReport.profit}</Text>
                </View>
                <View style={styles.itemColumn}>
                   <Text style={styles.itemName}>Loss:</Text>
-                  <Text style={styles.itemQuantity}>{reportData.loss}</Text>
+                  <Text style={styles.itemQuantity}>{salesReport.loss}</Text>
                </View>
             </View>
          </View>
