@@ -3,6 +3,7 @@ import FilterBranch from "../components/FilterBranch";
 import FilterSales from "../components/FilterSales";
 import LoadingSpinner from "../components/LoadingSpinner";
 import SalesCard from "../components/SalesCard";
+import { TUser } from "../redux/features/auth/authSlice";
 import {
    useGetSalesHistoryAllTimeQuery,
    useGetSalesHistoryThisMonthQuery,
@@ -17,11 +18,10 @@ import { RootState } from "../redux/store";
 const SalesHistory = () => {
    const [filterSales, setFilterSales] = useState("all-time");
    const [filter, setFilter] = useState("All Branches");
-   const [salesReport, setSalesReport] = useState({});
-   const [totalSellAmountState, setTotalSellAmountState] = useState(0);
 
    const user = useAppSelector((state: RootState) => state.auth.user);
-   const { role, username } = user;
+
+   const { role, username }: TUser = user!;
    const { data: branchData, isLoading: branchNameLoading } =
       useGetBranchQuery(username);
 
@@ -37,21 +37,6 @@ const SalesHistory = () => {
          setFilter(branchData?.data || "all-branches");
       }
    }, [filter, role, branchData]);
-
-   useEffect(() => {
-      setTotalSellAmountState(totalSellAmount);
-      console.log(totalSellAmountState);
-      const totalExpense = Math.round(totalSellAmountState * 0.8);
-      const profit = totalSellAmountState - totalExpense;
-      const loss = 0;
-      const newSalesReport = {
-         totalExpense,
-         totalSellAmount: totalSellAmountState,
-         profit,
-         loss,
-      };
-      setSalesReport(newSalesReport);
-   }, [totalSellAmountState]);
 
    const { data, isLoading, isSuccess } = useGetSalesHistoryAllTimeQuery({
       branchName: filter,
