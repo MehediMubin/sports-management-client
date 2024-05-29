@@ -47,8 +47,17 @@ const styles = StyleSheet.create({
    },
 });
 
-// Create Document Component
-const SalesReport = ({ salesReport }) => (
+interface SalesReportProps {
+   totalQuantity: number;
+   totalSellAmount: number;
+   totalExpense: number;
+   profit: number;
+   loss: number;
+}
+
+const SalesReport: React.FC<{ salesReport: SalesReportProps }> = ({
+   salesReport,
+}) => (
    <Document>
       <Page size="A4" style={styles.page}>
          <View style={styles.section}>
@@ -86,7 +95,9 @@ const SalesReport = ({ salesReport }) => (
    </Document>
 );
 
-const DownloadSalesReportButton = ({ salesReport }) => (
+const DownloadSalesReportButton: React.FC<{
+   salesReport: SalesReportProps;
+}> = ({ salesReport }) => (
    <div className="mt-4 mr-1">
       <button
          onClick={async () => {
