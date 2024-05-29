@@ -114,11 +114,11 @@ const Dashboard = () => {
                </button>
             </div>
          </div>
-         <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-4 gap-y-8">
-            <div className="lg:col-span-1">
+         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8">
+            <div className="md:col-span-1 lg:col-span-1">
                <FilterProducts setFilterData={setFilterData} />
             </div>
-            <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-8">
+            <div className="md:col-span-1 lg:col-span-2 grid grid-cols-1 gap-x-4 gap-y-8">
                {displayedProducts &&
                   displayedProducts.map(
                      (product: {
