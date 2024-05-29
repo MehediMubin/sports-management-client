@@ -1,10 +1,22 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { calculateFinancials } from "../utils/calculateFinancials";
 import FilterBranch from "./FilterBranch";
 import FilterSales from "./FilterSales";
 import SalesCard from "./SalesCard";
 import { DownloadSalesReportButton } from "./SalesReport";
 
-const AuthorizedView = ({
+interface AuthorizedViewProps {
+   role: string;
+   filterSales: any; // Replace 'any' with the actual type
+   setFilterSales: (value: any) => void; // Replace 'any' with the actual type
+   filter: any; // Replace 'any' with the actual type
+   setFilter: (value: any) => void; // Replace 'any' with the actual type
+   branchData: any; // Replace 'any' with the actual type
+   totalQuantity: number;
+   totalSellAmount: number;
+}
+
+const AuthorizedView: React.FC<AuthorizedViewProps> = ({
    role,
    filterSales,
    setFilterSales,
