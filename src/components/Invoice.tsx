@@ -1,6 +1,5 @@
 import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
-// import { styles } from "./PDFStyles";
-// Create styles
+
 const styles = StyleSheet.create({
    page: {
       flexDirection: "column",
@@ -40,8 +39,15 @@ const styles = StyleSheet.create({
       fontSize: 18,
    },
 });
-// Create Document Component
-const Invoice = ({ invoice }) => (
+
+interface InvoiceProps {
+   buyerName: string;
+   productName: string;
+   quantity: number;
+   date: string;
+}
+
+const Invoice: React.FC<{ invoice: InvoiceProps }> = ({ invoice }) => (
    <Document>
       <Page size="A4" style={styles.page}>
          <Text style={styles.title}>Invoice</Text>
