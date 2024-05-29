@@ -1,4 +1,7 @@
-export const calculateFinancials = (totalQuantity, totalSellAmount) => {
+export const calculateFinancials = (
+   totalQuantity: number,
+   totalSellAmount: number
+) => {
    const totalExpense = totalSellAmount * 0.7;
 
    const profit = totalSellAmount - totalExpense;
