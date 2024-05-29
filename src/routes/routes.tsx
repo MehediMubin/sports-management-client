@@ -6,7 +6,6 @@ import CreateVariant from "../pages/CreateVariant";
 import Dashboard from "../pages/Dashboard";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
-import Register from "../pages/Register";
 import SalesHistory from "../pages/SalesHistory";
 import UpdateProduct from "../pages/UpdateProduct";
 
