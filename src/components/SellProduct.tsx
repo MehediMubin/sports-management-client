@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { pdf } from "@react-pdf/renderer";
 import FileSaver from "file-saver";
 import { useState } from "react";
@@ -16,6 +15,7 @@ const SellProduct = ({ productId }: { productId: any }) => {
    const [sellProduct] = useCreateSaleMutation();
    const { register, handleSubmit, reset } = useForm();
    const { data: product, isLoading } = useGetProductByIdQuery(productId);
+   // eslint-disable-next-line @typescript-eslint/no-unused-vars
    const [sellingInfo, setSellingInfo] = useState<any>(null);
 
    const onSubmit = async (data: FieldValues) => {
