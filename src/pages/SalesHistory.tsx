@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import AuthorizedView from "../components/AuthorizedView";
 import LoadingSpinner from "../components/LoadingSpinner";
 import UnauthorizedView from "../components/UnauthorizedView";
-import useSalesHistory from "../hooks/useSalesHistory"; // new custom hook
+import useSalesHistory from "../hooks/useSalesHistory";
 import { TUser } from "../redux/features/auth/authSlice";
 import { useGetBranchQuery } from "../redux/features/user/userApi";
 import { useAppSelector } from "../redux/hooks";
@@ -34,7 +34,7 @@ const SalesHistory = () => {
    if (isLoading) return <LoadingSpinner />;
 
    return (
-      <div className="w-8/12 mx-auto mt-3">
+      <div className="w-full md:w-8/12 lg:w-6/12 mx-auto mt-3">
          {role === "seller" ? (
             <UnauthorizedView />
          ) : (
