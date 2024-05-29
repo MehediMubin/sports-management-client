@@ -1,5 +1,20 @@
 import { useGetAllProductsQuery } from "../redux/features/product/productApi";
 
+interface Product {
+   _id: string;
+   name: string;
+   price: number;
+   quantity: number;
+   image: string;
+   type: string;
+   manufacturer: string;
+   size: string;
+   material: string;
+   color: string;
+   condition: string;
+   branch: string;
+}
+
 const FilterBranch = ({
    filter,
    setFilter,
@@ -12,7 +27,9 @@ const FilterBranch = ({
 
    if (isLoading) return null;
 
-   let uniqueBranches = [...new Set(products.map((product) => product.branch))];
+   let uniqueBranches = [
+      ...new Set(products.map((product: Product) => product.branch)),
+   ];
    uniqueBranches.push("All Branches");
    uniqueBranches = uniqueBranches.sort();
 
