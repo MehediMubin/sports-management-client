@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import {
    useGetSalesHistoryAllTimeQuery,
@@ -7,7 +8,7 @@ import {
    useGetSalesHistoryTodayQuery,
 } from "../redux/features/sales/salesApi";
 
-const useSalesHistory = (filter, filterSales) => {
+const useSalesHistory = (filter: string, filterSales: string) => {
    const [totalQuantity, setTotalQuantity] = useState(0);
    const [totalSellAmount, setTotalSellAmount] = useState(0);
    const [isLoading, setIsLoading] = useState(true);
