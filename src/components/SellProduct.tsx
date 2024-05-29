@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { pdf } from "@react-pdf/renderer";
 import FileSaver from "file-saver";
 import { useState } from "react";
