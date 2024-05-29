@@ -16,7 +16,6 @@ const SellProduct = ({ productId }: { productId: any }) => {
    const { register, handleSubmit, reset } = useForm();
    const { data: product, isLoading } = useGetProductByIdQuery(productId);
    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-   const [sellingInfo, setSellingInfo] = useState<any>(null);
 
    const onSubmit = async (data: FieldValues) => {
       const newSellingInfo = {
@@ -28,7 +27,6 @@ const SellProduct = ({ productId }: { productId: any }) => {
          date: data.date,
       };
 
-      setSellingInfo(newSellingInfo);
       setIsFormOpen(false);
       reset();
       const res = await sellProduct(newSellingInfo);
