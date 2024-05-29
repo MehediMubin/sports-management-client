@@ -1,6 +1,6 @@
 # Sports Management Dashboard (Client)
 
-[Live URL](https://storied-biscuit-df9268.netlify.app/)
+[Live URL](https://unique-pony-72786f.netlify.app/)
 
 ## Features
 
