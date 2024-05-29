@@ -6,7 +6,7 @@ const SalesCard = ({
    description: string | number;
 }) => {
    return (
-      <div className="card w-96 bg-primary text-primary-content">
+      <div className="card w-96 bg-primary text-primary-content mr-10">
          <div className="card-body">
             <h2 className="card-title font-bold tracking-wide">{Title}</h2>
             <p className="text-2xl font-bold">{description}</p>

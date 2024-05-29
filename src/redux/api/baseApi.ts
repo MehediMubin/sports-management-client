@@ -4,7 +4,7 @@ import { logout, setUser } from "../features/auth/authSlice";
 import { RootState } from "../store";
 
 const baseQuery = fetchBaseQuery({
-   baseUrl: "https://flat-share-server-delta.vercel.app/api/v1",
+   baseUrl: "https://level2-assignment-6-server.vercel.app/api/v1",
    credentials: "include",
    prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;
@@ -23,7 +23,7 @@ const baseQueryWithRefreshToken = async (
    let result = await baseQuery(args, api, extraOptions);
    if (result.error?.status === 401) {
       const res = await fetch(
-         "https://flat-share-server-delta.vercel.app/api/v1/auth/refresh-token",
+         "https://level2-assignment-6-server.vercel.app/api/v1/auth/refresh-token",
          {
             method: "POST",
             credentials: "include",
